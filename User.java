@@ -11,14 +11,13 @@ public class User implements Runnable{
 
     public void run(){
         //code for what to do goes here.
-        
     }
 
-    public boolean isControlling() {
+    public synchronized boolean isControlling() {
         return (controlling == null) ? false : true;
     }
 
-    public boolean isControlling(Car x) {
+    public synchronized boolean isControlling(Car x) {
         if (controlling == null) {
             return false;
         } else {
@@ -31,7 +30,7 @@ public class User implements Runnable{
         }
     }
 
-    public boolean updateSpeed(int x) {
+    public synchronized boolean updateSpeed(int x) {
         if (controlling == null) {
             return false;
         }
@@ -43,7 +42,7 @@ public class User implements Runnable{
         }
     }
 
-    public boolean releaseCar() {
+    public synchronized boolean releaseCar() {
         if (controlling == null) {
             return true;
         }
