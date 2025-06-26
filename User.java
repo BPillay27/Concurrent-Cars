@@ -1,4 +1,4 @@
-public class User {
+public class User implements Runnable{
     String name;
     int id;
     Car controlling;
@@ -7,6 +7,11 @@ public class User {
         this.name = name;
         this.id = id;
         controlling = null;
+    }
+
+    public void run(){
+        //code for what to do goes here.
+        
     }
 
     public boolean isControlling() {
@@ -50,4 +55,6 @@ public class User {
         controlling = null;
         return true;
     }
+
+    
 }
