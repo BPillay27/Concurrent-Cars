@@ -5,6 +5,7 @@ public class Car {
     public int id;
     public int currentSpeed = 0;
     public boolean available = true;
+    public User controller;
 
     Car(String brand, int mileage, String make, int id) {
         this.brand = brand;
