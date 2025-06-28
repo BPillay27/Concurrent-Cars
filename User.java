@@ -1,4 +1,4 @@
-public class User implements Runnable{
+public class User implements Runnable {
     String name;
     int id;
     Car controlling;
@@ -9,8 +9,8 @@ public class User implements Runnable{
         controlling = null;
     }
 
-    public void run(){
-        //code for what to do goes here.
+    public void run() {
+        // code for what to do goes here.
     }
 
     public synchronized boolean isControlling() {
@@ -37,8 +37,10 @@ public class User implements Runnable{
 
         if (x < 0) {
             return controlling.slowDown();
-        } else {
+        } else if (x > 0) {
             return controlling.speedUp();
+        } else {
+            return false;
         }
     }
 
@@ -55,5 +57,4 @@ public class User implements Runnable{
         return true;
     }
 
-    
 }
