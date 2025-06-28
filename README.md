@@ -47,6 +47,16 @@ currentSpeed: The current speed of the car.
 User Controller: The user currently controlling this car. Null if the car is available.
 
 ### Member Functions and Constructor
++ Car(String brand, int mileage, String make, int id)
+Constructor. Assigns the input values to the appropriate member variables. Sets controller to null.
+
++ public void updateMileage(int x)
+
+
++ public boolean speedUp()
+
+
++ public boolean slowDown()
 
 
 ## Main

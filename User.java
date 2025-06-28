@@ -24,7 +24,7 @@ public class User implements Runnable {
             if (x == null) {
                 return false;
             } else {
-                // ATP: There is a controll, and there is a input
+                // ATP: There is a controll, annulld there is a input
                 return (x.id == controlling.id) ? true : false;
             }
         }
@@ -52,9 +52,14 @@ public class User implements Runnable {
         while (controlling.currentSpeed != 0) {
             controlling.slowDown();
         }
-
+        controlling.setController(null);
         controlling = null;
         return true;
     }
 
+    public synchronized boolean setControl(Car x){
+        x.setController(this);
+        controlling=x;
+        return true;
+    }
 }

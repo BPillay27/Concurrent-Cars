@@ -4,7 +4,6 @@ public class Car {
     String make;
     int id;
     int currentSpeed = 0;
-    boolean available = true;
     User controller;
 
     Car(String brand, int mileage, String make, int id) {
@@ -12,6 +11,7 @@ public class Car {
         this.mileage = mileage;
         this.make = make;
         this.id = id;
+        controller = null;
     }
 
     public void updateMileage(int x) {
@@ -31,5 +31,13 @@ public class Car {
             currentSpeed -= 10;
             return true;
         }
+    }
+
+    public void setController(User user) {
+        controller = user;
+    }
+
+    public boolean isAvailable() {
+        return (controller == null) ? true : false;
     }
 }
