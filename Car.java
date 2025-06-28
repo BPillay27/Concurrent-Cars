@@ -1,11 +1,11 @@
 public class Car {
-    public String brand;
-    public int mileage;
-    public String make;
-    public int id;
-    public int currentSpeed = 0;
-    public boolean available = true;
-    public User controller;
+    String brand;
+    int mileage;
+    String make;
+    int id;
+    int currentSpeed = 0;
+    boolean available = true;
+    User controller;
 
     Car(String brand, int mileage, String make, int id) {
         this.brand = brand;

@@ -33,6 +33,21 @@ Currently, the user can just speedUp or slowDown the car by 10 km/s. If the User
 This is a method to release control of the car. If the user does not have control of a car, returns null. If the user does, slows the car down to 0 km/s to ensure safe release, then sets control to null. Return true.
 
 ## Car 
+### Member variables
++ String brand;
++ int mileage;
++ String make;
++ int id;
++ int currentSpeed = 0;
++ boolean available = true;
++ User controller;
+
+[brand, mileage, make]: Generic information for a car for practice purposes, these attributes could be used as a super key.
+currentSpeed: The current speed of the car.
+User Controller: The user currently controlling this car. Null if the car is available.
+
+### Member Functions and Constructor
+
 
 ## Main
 
