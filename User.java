@@ -42,7 +42,9 @@ public class User implements Runnable {
         } else {
             return false;
         }
-    }
+    }x.setController(this);
+        controlling=x;
+        return true;
 
     public synchronized boolean releaseCar() {
         if (controlling == null) {
@@ -57,9 +59,9 @@ public class User implements Runnable {
         return true;
     }
 
-    public synchronized boolean setControl(Car x){
-        x.setController(this);
-        controlling=x;
-        return true;
+    public synchronized boolean setControl(Car[] x){
+        if(x==null){
+            return false;
+        }
     }
 }
