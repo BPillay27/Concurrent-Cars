@@ -11,7 +11,9 @@ public class User implements Runnable {
 
     public void run() {
         // code for what to do goes here.
-        setControl();
+        while (!setControl()) {
+
+        }
         updateSpeed(1);
         updateSpeed(1);
         updateSpeed(-1);
@@ -56,30 +58,48 @@ public class User implements Runnable {
 
         while (controlling.getCurrentSpeed() != 0) {
             controlling.slowDown();
+            try{
+                Thread.sleep(100);
+            } catch(InterruptedException e){
+                Thread.currentThread().interrupt();
+            }
         }
-        controlling.setController(null);
+
+        synchronized (controlling){
+            controlling.setController(null);
+        }
+        System.out.println("User " + id + " released control of car " + controlling.getId());
         controlling = null;
+        notifyAll();
         return true;
     }
 
     public synchronized boolean setControl() {
-        if (Global.cars == null) {
-            return false;
-        }
+        while (controlling == null) {
+            if (Global.cars == null) {
+                return false;
+            }
 
-        for (int i = 0; i < Global.cars.length; i++) {
-            if (Global.cars[i].isAvailable()) {
-                controlling = Global.cars[i];
-                System.out.println("User " + id+ "is controlling Car " + Global.cars[i].getId());
-                Global.cars[i].setController(this);                
-                return true;
+            for (int i = 0; i < Global.cars.length; i++) {
+                if (Global.cars[i].isAvailable()) {
+                    controlling = Global.cars[i];
+                    System.out.println("User " + id + " is controlling Car " + Global.cars[i].getId());
+                    Global.cars[i].setController(this);
+                    return true;
+                }
+            }
+            try {
+                wait(100);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return false;
             }
         }
 
-        return false;
+        return true;
     }
 
-    public synchronized int getId(){
+    public synchronized int getId() {
         return id;
     }
 }
