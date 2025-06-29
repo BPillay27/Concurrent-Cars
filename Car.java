@@ -14,16 +14,16 @@ public class Car {
         controller = null;
     }
 
-    public void updateMileage(int x) {
+    public synchronized void updateMileage(int x) {
         mileage += x;
     }
 
-    public boolean speedUp() {
+    public synchronized boolean speedUp() {
         currentSpeed += 10;
         return true;
     }
 
-    public boolean slowDown() {
+    public synchronized boolean slowDown() {
         if (currentSpeed <= 10) {
             currentSpeed = 0;
             return true;
@@ -33,11 +33,15 @@ public class Car {
         }
     }
 
-    public void setController(User user) {
+    public synchronized void setController(User user) {
         controller = user;
     }
 
-    public boolean isAvailable() {
+    public synchronized boolean isAvailable() {
         return (controller == null) ? true : false;
+    }
+
+    public synchronized int getCurrentSpeed() {
+        return currentSpeed;
     }
 }

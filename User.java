@@ -11,6 +11,11 @@ public class User implements Runnable {
 
     public void run() {
         // code for what to do goes here.
+        setControl();
+        updateSpeed(1);
+        updateSpeed(1);
+        updateSpeed(-1);
+        releaseCar();
     }
 
     public synchronized boolean isControlling() {
@@ -24,7 +29,7 @@ public class User implements Runnable {
             if (x == null) {
                 return false;
             } else {
-                // ATP: There is a controll, annulld there is a input
+                // ATP: There is a controll, check if same
                 return (x.id == controlling.id) ? true : false;
             }
         }
@@ -42,16 +47,14 @@ public class User implements Runnable {
         } else {
             return false;
         }
-    }x.setController(this);
-        controlling=x;
-        return true;
+    }
 
     public synchronized boolean releaseCar() {
         if (controlling == null) {
-            return true;
+            return false;
         }
 
-        while (controlling.currentSpeed != 0) {
+        while (controlling.getCurrentSpeed() != 0) {
             controlling.slowDown();
         }
         controlling.setController(null);
@@ -59,9 +62,19 @@ public class User implements Runnable {
         return true;
     }
 
-    public synchronized boolean setControl(Car[] x){
-        if(x==null){
+    public synchronized boolean setControl() {
+        if (Global.cars == null) {
             return false;
         }
+
+        for (int i = 0; i < Global.cars.length; i++) {
+            if (Global.cars[i].isAvailable()) {
+                controlling = Global.cars[i];
+                Global.cars[i].setController(this);
+                return true;
+            }
+        }
+
+        return false;
     }
 }
