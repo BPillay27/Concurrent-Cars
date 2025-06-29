@@ -19,11 +19,17 @@ public class Car {
     }
 
     public synchronized boolean speedUp() {
+        System.out.println("User "+ controller.getId()+ "increased speed of Car " + String.valueOf(id));
+        updateMileage(5);
+        
         currentSpeed += 10;
         return true;
     }
 
     public synchronized boolean slowDown() {
+        System.out.println("User "+ controller.getId()+ "decreased speed of Car " + String.valueOf(id));
+        updateMileage(5);
+        
         if (currentSpeed <= 10) {
             currentSpeed = 0;
             return true;
@@ -34,6 +40,7 @@ public class Car {
     }
 
     public synchronized void setController(User user) {
+        System.out.println("Car " + String.valueOf(id)+ " is being controlled by " + user.getId());
         controller = user;
     }
 
@@ -43,5 +50,9 @@ public class Car {
 
     public synchronized int getCurrentSpeed() {
         return currentSpeed;
+    }
+
+    public synchronized int getId(){
+        return id;
     }
 }

@@ -67,6 +67,7 @@ Constructor. Assigns the input values to the appropriate member variables. Sets 
 + Adding synchronized to the function signature ensures the function accessing resources mutually exclusively.
 + It may be good design for both objects to store the control. I.e the User should know which Car is controlling it and the Car should know which user is controlling it.
 + Git and GitHub is not the same thing. Git is a local software. GitHub is a system which uses Git and is popular in the industry.
++ If a message for a commit is not provided, it will not be performed by vscode Git and GitHub extentions. 
 
 # Conclusion
 

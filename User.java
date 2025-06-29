@@ -70,11 +70,16 @@ public class User implements Runnable {
         for (int i = 0; i < Global.cars.length; i++) {
             if (Global.cars[i].isAvailable()) {
                 controlling = Global.cars[i];
-                Global.cars[i].setController(this);
+                System.out.println("User " + id+ "is controlling Car " + Global.cars[i].getId());
+                Global.cars[i].setController(this);                
                 return true;
             }
         }
 
         return false;
+    }
+
+    public synchronized int getId(){
+        return id;
     }
 }

@@ -23,6 +23,9 @@ public class Main {
         Global.cars[1]=new Car("Toyota",134222,"Corolla",2);
         Global.cars[2]=new Car("Suzuki",5339,"Swift",3);
 
-        
+        for(int i=0;i<Global.users.length;i++){
+            Thread t=new Thread(Global.users[i]);
+            t.start();
+        }
     }
 }
