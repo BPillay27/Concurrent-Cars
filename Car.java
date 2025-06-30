@@ -40,8 +40,15 @@ public class Car {
     }
 
     public synchronized void setController(User user) {
-        System.out.println("Car " + String.valueOf(id) + " is being controlled by " + user.getId());
         controller = user;
+        
+        if(user==null){
+            System.out.println("Car " + String.valueOf(id) + " is unassigned ");
+        } else{
+            System.out.println("Car " + String.valueOf(id) + " is being controlled by " + user.getId());
+        }
+        
+        
     }
 
     public synchronized boolean isAvailable() {
@@ -54,5 +61,9 @@ public class Car {
 
     public synchronized int getId() {
         return id;
+    }
+
+    public synchronized User getController(){
+        return controller;
     }
 }

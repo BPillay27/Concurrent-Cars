@@ -12,7 +12,12 @@ public class User implements Runnable {
     public void run() {
         // code for what to do goes here.
         while (!setControl()) {
-
+            try{
+                Thread.sleep(100);
+            }catch (InterruptedException e){
+                Thread.currentThread().interrupt();
+                return;
+            }
         }
         updateSpeed(1);
         updateSpeed(1);
@@ -66,10 +71,18 @@ public class User implements Runnable {
         }
 
         synchronized (controlling){
+            if(controlling.getController() != this){
+                controlling=null;
+                return false;
+            }
+
+            System.out.println("User " + id + " released control of car " + controlling.getId());
             controlling.setController(null);
+            controlling = null;
+            
         }
-        System.out.println("User " + id + " released control of car " + controlling.getId());
-        controlling = null;
+        
+        // controlling=null;
         notifyAll();
         return true;
     }
@@ -81,12 +94,17 @@ public class User implements Runnable {
             }
 
             for (int i = 0; i < Global.cars.length; i++) {
-                if (Global.cars[i].isAvailable()) {
-                    controlling = Global.cars[i];
-                    System.out.println("User " + id + " is controlling Car " + Global.cars[i].getId());
-                    Global.cars[i].setController(this);
+                Car car=Global.cars[i];
+
+                synchronized (car){
+                    if (car.isAvailable()) {
+                    controlling =car;
+                    System.out.println("User " + id + " is controlling Car " + car.getId());
+                    car.setController(this);
                     return true;
+                    }
                 }
+                
             }
             try {
                 wait(100);
